@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Challenge No 1</title>
     <style>
         body {
@@ -13,13 +15,15 @@
             justify-content: center;
             align-items: center;
         }
-         .widget {
+
+        .widget {
             background-color: #4a2323;
             padding: 32px;
             border-radius: 16px;
             box-shadow: 0 6px 20px rgba(0,0,0,0.2);
             text-align: center;
-            width: 300px;
+            width: 90%;
+            max-width: 320px;
         }
 
         .widget img {
@@ -57,7 +61,7 @@
 
     <div class="widget">
         <img src="phy1 aryan.jpeg" alt="Secure Image">
-        <input type="password" id="password" placeholder="Your deductions agent ">
+        <input type="password" id="password" placeholder="Your deductions agent">
         <br>
         <button onclick="checkPassword()">Submit</button>
     </div>
@@ -65,38 +69,36 @@
     <script>
         function checkPassword() {
             const correctPassword = "Instinct is a marvelous thing it can neither be explained nor ignored";
-
-
             const enteredPassword = document.getElementById("password").value;
 
             if (enteredPassword === correctPassword) {
-                window.location.href = "chillpointmcq2.html";  // Link to next page
+                window.location.href = "chillpointmcq2.html";
             } else {
                 alert("Incorrect password. Try again!");
             }
         }
     </script>
 
-</body>
-<script>
-fetch(`http://localhost:5000/progress/${localStorage.getItem("username")}`, {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ progress: 2 })
-})
-.then(res => res.json())
-.then(data => {
-    if (!data.success) {
-        alert("Not logged in!");
-        window.location.href = "login.html";
-    }
-    if (data.progress < 2) { 
-        alert("You cannot access this stage yet!");
-        window.location.href = "login.html";
-    }
-});
-</script>
+    <script>
+        fetch(`http://localhost:5000/progress/${localStorage.getItem("username")}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ progress: 2 })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (!data.success) {
+                alert("Not logged in!");
+                window.location.href = "login.html";
+            }
+            if (data.progress < 2) {
+                alert("You cannot access this stage yet!");
+                window.location.href = "login.html";
+            }
+        });
+    </script>
 
+</body>
 </html>
