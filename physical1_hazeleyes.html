@@ -1,102 +1,118 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Challenge No 1</title>
-    <style>
-        body {
-            background-image: url('download.jpg');
-            background-size: cover;
-            background-repeat: no-repeat;
-            height: 100vh;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-         .widget {
-            background-color: #4a2323;
-            padding: 32px;
-            border-radius: 16px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-            text-align: center;
-            width: 300px;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Challenge No 1</title>
+  <link rel="preload" href="download.jpg" as="image" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: url('download.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-        .widget img {
-            width: 100%;
-            height: auto;
-            border-radius: 12px;
-            margin-bottom: 24px;
-        }
+    .widget {
+      background-color: #4a2323;
+      padding: 32px 24px;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      width: 90%;
+      max-width: 360px;
+    }
 
-        .widget input[type="password"] {
-            padding: 10px;
-            width: 100%;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 1rem;
-            margin-bottom: 16px;
-        }
+    .widget img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
 
-        .widget button {
-            padding: 10px 20px;
-            background-color: #1565c0;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            cursor: pointer;
-        }
+    .widget input[type="password"] {
+      padding: 12px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      margin-bottom: 16px;
+      box-sizing: border-box;
+    }
 
-        .widget button:hover {
-            background-color: #0d47a1;
-        }
-    </style>
+    .widget button {
+      padding: 12px;
+      width: 100%;
+      background-color: #1565c0;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .widget button:hover {
+      background-color: #0d47a1;
+    }
+
+    @media (max-width: 480px) {
+      .widget {
+        padding: 28px 20px;
+      }
+
+      .widget input,
+      .widget button {
+        font-size: 0.95rem;
+        padding: 10px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <div class="widget">
-        <img src="phy1diya.jpeg" alt="Secure Image">
-        <input type="password" id="password" placeholder="Your deductions agent ">
-        <br>
-        <button onclick="checkPassword()">Submit</button>
-    </div>
+  <div class="widget">
+    <img src="phy1diya.jpeg" alt="Secure Image" loading="lazy" />
+    <input type="password" id="password" placeholder="Your deductions, agent" />
+    <button onclick="checkPassword()">Submit</button>
+  </div>
 
-    <script>
-        function checkPassword() {
-            const correctPassword = "Instinct is a marvelous thing it can neither be explained nor ignored";
+  <script>
+    const correctPassword = "Instinct is a marvelous thing it can neither be explained nor ignored";
 
-;
-            const enteredPassword = document.getElementById("password").value;
+    function checkPassword() {
+      const entered = document.getElementById("password").value.trim();
+      if (entered === correctPassword) {
+        window.location.href = "hazeleyesmcq2.html";
+      } else {
+        alert("Incorrect password. Try again!");
+      }
+    }
 
-            if (enteredPassword === correctPassword) {
-                window.location.href = "hazeleyesmcq2.html";  // Link to next page
-            } else {
-                alert("Incorrect password. Try again!");
-            }
-        }
-    </script>
+    // Access control based on progress
+    fetch(`http://localhost:5000/progress/${localStorage.getItem("username")}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ progress: 2 })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (!data.success || data.progress < 2) {
+        alert("Access denied. Login or complete earlier stage.");
+        window.location.href = "login.html";
+      }
+    })
+    .catch(() => {
+      alert("Server issue. Try again later.");
+      window.location.href = "login.html";
+    });
+  </script>
 
 </body>
-<script>
-fetch(`http://localhost:5000/progress/${localStorage.getItem("username")}`, {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ progress: 2 })
-})
-.then(res => res.json())
-.then(data => {
-    if (!data.success) {
-        alert("Not logged in!");
-        window.location.href = "login.html";
-    }
-    if (data.progress < 2) { 
-        alert("You cannot access this stage yet!");
-        window.location.href = "login.html";
-    }
-});
-</script>
-
 </html>
