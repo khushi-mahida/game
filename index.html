@@ -2,59 +2,93 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Login</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             background-color: #4a0606;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
+            padding: 16px;
         }
+
         .login-container {
             background-color: #a39393;
-            padding: 40px 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-            width: 320px;
+            padding: 32px 24px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 400px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+
+        .login-container h2 {
+            margin-bottom: 24px;
+            color: #2e0101;
+        }
+
         input {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             margin-bottom: 18px;
-            border-radius: 5px;
+            border-radius: 6px;
             border: 1px solid #631919;
+            font-size: 1rem;
         }
+
         button {
-            padding: 10px;
+            width: 100%;
+            padding: 12px;
             background-color: #5e3541;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 6px;
+            font-size: 1rem;
             cursor: pointer;
+            transition: background-color 0.2s ease;
         }
+
+        button:hover {
+            background-color: #782e3b;
+        }
+
         .error {
-            color: red;
+            color: #ff0000;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        @media screen and (max-width: 500px) {
+            .login-container {
+                padding: 24px 16px;
+            }
         }
     </style>
 </head>
 <body>
+
     <div class="login-container">
-        <h2>Login</h2>
+        <h2>Agent Login</h2>
         <div id="error" class="error"></div>
-        <input type="text" id="username" placeholder="Agent ID" />
+        <input type="text" id="username" placeholder="Agent ID" autocomplete="off" />
         <input type="password" id="password" placeholder="Password" />
         <button onclick="login()">Login</button>
     </div>
 
     <script>
         const credentials = [
-            { username: "Neel Kamal", password: "scriptwriter", page: "neelkamal.html" },
+            { username: "NeelKamal", password: "scriptwriter", page: "neelkamal.html" },
             { username: "ChillPoint", password: "Hukam ka ekka pair no 2", page: "ChillPoint.html" },
             { username: "Hazeleyes", password: "gudiya", page: "hazeleyes.html" },
             { username: "IronFlare", password: "Hukam Ka ekka pair no 1", page: "IronFlare.html" },
@@ -78,5 +112,3 @@
     </script>
 </body>
 </html>
-
-
