@@ -1,5 +1,8 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Challenge No 1</title>
     <style>
         body {
@@ -11,29 +14,36 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            font-family: Arial, sans-serif;
         }
+
         .center-box {
             background: rgba(233, 190, 190, 0.85);
             box-shadow: 0 8px 24px rgba(0,0,0,0.3);
             border-radius: 16px;
             padding: 40px 32px 32px 32px;
             text-align: center;
-            min-width: 320px;
+            min-width: 300px;
+            max-width: 90vw;
         }
+
         .center-box h2 {
             margin: 0 0 24px 0;
-            font-size: 2rem;
+            font-size: 1.6rem;
             color: #230202;
             text-shadow: 2px 2px 8px #d76f6f;
         }
+
         .button-row {
             display: flex;
             justify-content: center;
-            gap: 18px;
+            flex-wrap: wrap;
+            gap: 12px;
             margin-top: 24px;
         }
+
         .center-btn {
-            padding: 12px 28px;
+            padding: 12px 20px;
             font-size: 1rem;
             border: none;
             border-radius: 8px;
@@ -43,9 +53,11 @@
             box-shadow: 0 2px 8px rgba(255, 71, 71, 0.15);
             transition: background 0.2s;
         }
+
         .center-btn:hover {
             background: #1565c0;
         }
+
         .msg-box {
             position: fixed;
             top: 50%;
@@ -59,9 +71,10 @@
             min-width: 240px;
             text-align: center;
             z-index: 1000;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             display: none;
         }
+
         .msg-box button {
             margin-top: 18px;
             padding: 8px 20px;
@@ -71,6 +84,7 @@
             color: #fff;
             cursor: pointer;
         }
+
         .msg-box button:hover {
             background: #1565c0;
         }
@@ -78,12 +92,12 @@
 </head>
 <body>
     <div class="center-box">
-        <h2> What was the first and last thing Diya opened from Khushi’s gift? on diya's birthday</h2>
+        <h2>What was the first and last thing Diya opened from Khushi’s gift?</h2>
         <div class="button-row">
             <button class="center-btn" onclick="showMsg('Sirf dil se khela, dimaag ko bench pe bithaya!')">Pouch, face palette</button>
-            <button class="center-btn" onclick="showMsg('Soochooo zara sochoooSirf dil se khela, dimaag ko bench pe bithaya!… dil se nahi, dimaag se!')">Face palette, lipstick</button>
+            <button class="center-btn" onclick="showMsg('Soochooo zara sochooo... dil se nahi, dimaag se!')">Face palette, lipstick</button>
             <button class="center-btn" onclick="showMsg('Kyaaaa bhaiiii, yeh kaise socha tumne?')">Lipstick, pouch</button>
-            <button class="center-btn" onclick="showMsg('Well done, Agent! Final page awaits!')">Earring, key chain </button>
+            <button class="center-btn" onclick="showMsg('Well done, Agent! Final page awaits!')">Earring, key chain</button>
         </div>
     </div>
 
@@ -114,28 +128,25 @@
             document.getElementById('msgBox').style.display = 'none';
         }
     </script>
-</body>
-<script>
-fetch(`http://localhost:5000/progress/${localStorage.getItem("username")}`, {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-        progress: 1
-    })
-})
-.then(res => res.json())
-.then(data => {
-    if (!data.success) {
-        alert("Not logged in!");
-        window.location.href = "login.html";
-    }
-    if (data.progress < 1) { 
-        alert("You cannot access this stage yet!");
-        window.location.href = "login.html";
-    }
-});
-</script>
 
+    <script>
+    fetch(`http://localhost:5000/progress/${localStorage.getItem("username")}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ progress: 1 })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (!data.success) {
+            alert("Not logged in!");
+            window.location.href = "login.html";
+        }
+        if (data.progress < 1) {
+            alert("You cannot access this stage yet!");
+            window.location.href = "login.html";
+        }
+    });
+    </script>
+</body>
 </html>
+
